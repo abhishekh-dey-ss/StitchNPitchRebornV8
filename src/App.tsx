@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { supabase } from './lib/supabase';
 import LoginPortal from './components/LoginPortal';
 import RandomGuideSelector from './components/RandomGuideSelector';
@@ -16,6 +16,8 @@ import DynamicOrbs from './components/DynamicOrbs';
 import Navigation from './components/Navigation';
 import { Guide, Winner, Loser, EliteSpiral } from './config/data';
 
+import './styles/responsive.css';
+
 type AppTab = 'selection' | 'winners' | 'elite-spiral';
 
 // Session management constants
@@ -27,7 +29,21 @@ interface SessionData {
   timestamp: number;
 }
 
+// Add responsive utility hook
+const useResponsive = () => {
+  const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
+  
+  useCallback(() => {
+    const handleResize = () => setIsMobile(window.innerWidth < 768);
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+  
+  return { isMobile };
+};
+
 function App() {
+  const { isMobile } = useResponsive();
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [currentTab, setCurrentTab] = useState<AppTab>('selection');
   const [selectedGuide, setSelectedGuide] = useState<Guide | null>(null);
@@ -46,6 +62,7 @@ function App() {
   const [isWinHistoryDashboardOpen, setIsWinHistoryDashboardOpen] = useState(false);
   const [isExportDataOpen, setIsExportDataOpen] = useState(false);
   const [isBackupRestoreOpen, setIsBackupRestoreOpen] = useState(false);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   // Check for existing session on app load
   useEffect(() => {
@@ -549,7 +566,7 @@ function App() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-purple-900 via-purple-800 to-indigo-900 relative overflow-hidden">
+    <div className={`min-h-screen bg-gradient-to-br from-purple-900 via-purple-800 to-indigo-900 relative overflow-hidden ${isMobile ? 'mobile-layout' : ''}`}>
       {/* Dynamic Orbs Background */}
       <DynamicOrbs />
 
@@ -566,7 +583,7 @@ function App() {
       />
 
       {/* Main Content */}
-      <div className="relative z-10">
+      <div className={`relative z-10 ${isMobile ? 'mobile-content' : ''}`}>
         {currentTab === 'selection' && (
           <RandomGuideSelector 
             onGuideSelected={handleGuideSelected} 
@@ -587,7 +604,7 @@ function App() {
             eliteWinners={eliteWinners}
             onDeleteWinner={deleteWinnerFromDatabase}
             onDeleteEliteWinner={deleteEliteWinnerFromDatabase}
-          isLoggedIn={isLoggedIn}
+            isLoggedIn={isLoggedIn}
           />
         )}
       </div>
@@ -596,8 +613,7 @@ function App() {
       {currentWinner && (
         <WinnerDisplay
           winner={currentWinner}
-          isLoggedIn={isLoggedIn}
-          isLoggedIn={isLoggedIn}
+          onBack={handleCloseWinner}
         />
       )}
 
@@ -614,7 +630,7 @@ function App() {
         }}
         guideName={selectedGuide?.name || ''}
         chatIds={selectedChatIds}
-        skipPasswordValidation={true}
+        isLoggedIn={true}
       />
 
       {/* New Feature Modals */}
