@@ -12,8 +12,6 @@ interface NavigationProps {
   onLogout: () => void;
 }
 
-const [isMobileMenuOpen, setIsMobileMenuOpen] = React.useState(false);
-
 const Navigation: React.FC<NavigationProps> = ({
   currentTab,
   onTabChange,
