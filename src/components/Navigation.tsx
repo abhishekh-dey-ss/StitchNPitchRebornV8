@@ -31,58 +31,61 @@ const Navigation: React.FC<NavigationProps> = ({
   return (
     <nav className="fixed top-0 left-0 right-0 z-40 bg-black bg-opacity-20 backdrop-blur-md border-b border-white border-opacity-20">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between h-14 sm:h-16">
+        <div className="flex items-center justify-between h-16 sm:h-18 md:h-20">
           {/* Logo - Clickable */}
           <button 
             onClick={handleLogoClick}
-            className="flex items-center gap-3 hover:opacity-80 transition-opacity"
+            className="flex items-center gap-2 sm:gap-3 hover:opacity-80 transition-opacity"
           >
             <div className="relative">
               <img 
                 src="/stitch-n-pitch-logo.png" 
                 alt="Stitch n Pitch Logo" 
-                className="h-8 w-8 sm:h-10 sm:w-10 md:h-12 md:w-12 rounded-lg sm:rounded-xl object-cover drop-shadow-lg border-2 border-white border-opacity-30"
+                className="h-10 w-10 sm:h-12 sm:w-12 md:h-14 md:w-14 lg:h-16 lg:w-16 rounded-lg sm:rounded-xl object-cover drop-shadow-lg border-2 border-white border-opacity-30"
               />
             </div>
-            <div className="hidden sm:block">
-              <h1 className="text-sm md:text-lg lg:text-xl font-bold text-white">Stitch n Pitch Portal</h1>
+            <div className="hidden xs:block">
+              <h1 className="text-xs sm:text-sm md:text-lg lg:text-xl xl:text-2xl font-bold text-white">
+                <span className="hidden sm:inline">Stitch n Pitch Portal</span>
+                <span className="sm:hidden">Stitch n Pitch</span>
+              </h1>
             </div>
           </button>
 
           {/* Mobile Menu Button */}
           <button
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-            className="md:hidden text-white hover:text-gray-200 transition-colors bg-white bg-opacity-10 rounded-lg p-2 hover:bg-opacity-20 backdrop-blur-sm"
+            className="lg:hidden text-white hover:text-gray-200 transition-colors bg-white bg-opacity-10 rounded-lg p-2 sm:p-3 hover:bg-opacity-20 backdrop-blur-sm"
           >
-            {isMobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
+            {isMobileMenuOpen ? <X className="w-5 h-5 sm:w-6 sm:h-6" /> : <Menu className="w-5 h-5 sm:w-6 sm:h-6" />}
           </button>
 
           {/* Desktop Navigation */}
-          <div className="hidden md:flex items-center gap-1 lg:gap-2">
+          <div className="hidden lg:flex items-center gap-1 xl:gap-2">
             <button
               onClick={() => onTabChange('selection')}
-              className={`flex items-center gap-1 lg:gap-2 px-2 lg:px-4 py-2 rounded-lg font-medium transition-all text-sm lg:text-base ${
+              className={`flex items-center gap-1 xl:gap-2 px-2 xl:px-4 py-2 rounded-lg font-medium transition-all text-sm xl:text-base ${
                 currentTab === 'selection'
                   ? 'bg-purple-600 text-white shadow-lg'
                   : 'text-purple-200 hover:text-white hover:bg-white hover:bg-opacity-10'
               }`}
             >
-              <Home className="w-3 h-3 lg:w-4 lg:h-4" />
+              <Home className="w-4 h-4 xl:w-5 xl:h-5" />
               <span>Selection</span>
             </button>
 
             <button
               onClick={() => onTabChange('winners')}
-              className={`flex items-center gap-1 lg:gap-2 px-2 lg:px-4 py-2 rounded-lg font-medium transition-all relative text-sm lg:text-base ${
+              className={`flex items-center gap-1 xl:gap-2 px-2 xl:px-4 py-2 rounded-lg font-medium transition-all relative text-sm xl:text-base ${
                 currentTab === 'winners'
                   ? 'bg-yellow-600 text-white shadow-lg'
                   : 'text-purple-200 hover:text-white hover:bg-white hover:bg-opacity-10'
               }`}
             >
-              <Trophy className="w-3 h-3 lg:w-4 lg:h-4" />
+              <Trophy className="w-4 h-4 xl:w-5 xl:h-5" />
               <span>Winners</span>
               {winnerCount > 0 && (
-                <span className="absolute -top-1 -right-1 bg-red-500 text-white text-xs rounded-full w-4 h-4 lg:w-5 lg:h-5 flex items-center justify-center text-xs">
+                <span className="absolute -top-1 -right-1 bg-red-500 text-white text-xs rounded-full w-5 h-5 xl:w-6 xl:h-6 flex items-center justify-center text-xs">
                   {winnerCount}
                 </span>
               )}
@@ -91,15 +94,15 @@ const Navigation: React.FC<NavigationProps> = ({
             {winnerCount > 0 && (
               <button
                 onClick={() => onTabChange('elite-spiral')}
-                className={`flex items-center gap-1 lg:gap-2 px-2 lg:px-4 py-2 rounded-lg font-medium transition-all text-sm lg:text-base ${
+                className={`flex items-center gap-1 xl:gap-2 px-2 xl:px-4 py-2 rounded-lg font-medium transition-all text-sm xl:text-base ${
                   currentTab === 'elite-spiral'
                     ? 'bg-gradient-to-r from-yellow-400 to-orange-500 text-white shadow-lg'
                     : 'text-purple-200 hover:text-white hover:bg-white hover:bg-opacity-10'
                 }`}
               >
-                <Crown className="w-3 h-3 lg:w-4 lg:h-4" />
-                <span className="hidden lg:inline">Elite's Spiral</span>
-                <span className="lg:hidden">Elite</span>
+                <Crown className="w-4 h-4 xl:w-5 xl:h-5" />
+                <span className="hidden xl:inline">Elite's Spiral</span>
+                <span className="xl:hidden">Elite</span>
               </button>
             )}
 
@@ -108,13 +111,13 @@ const Navigation: React.FC<NavigationProps> = ({
               <>
                 <button
                   onClick={onOpenWinHistoryDashboard}
-                  className="flex items-center gap-1 lg:gap-2 px-2 lg:px-4 py-2 rounded-lg font-medium text-purple-200 hover:text-white hover:bg-white hover:bg-opacity-10 transition-all text-sm lg:text-base"
+                  className="flex items-center gap-1 xl:gap-2 px-2 xl:px-4 py-2 rounded-lg font-medium text-purple-200 hover:text-white hover:bg-white hover:bg-opacity-10 transition-all text-sm xl:text-base"
                   title="Win History Dashboard"
                 >
-                  <BarChart3 className="w-3 h-3 lg:w-4 lg:h-4" />
-                  <span className="hidden lg:inline">Analytics</span>
+                  <BarChart3 className="w-4 h-4 xl:w-5 xl:h-5" />
+                  <span className="hidden xl:inline">Analytics</span>
                   {eliteWinnerCount > 0 && (
-                    <span className="absolute -top-1 -right-1 bg-yellow-500 text-white text-xs rounded-full w-3 h-3 lg:w-4 lg:h-4 flex items-center justify-center text-xs">
+                    <span className="absolute -top-1 -right-1 bg-yellow-500 text-white text-xs rounded-full w-4 h-4 xl:w-5 xl:h-5 flex items-center justify-center text-xs">
                       E
                     </span>
                   )}
@@ -122,20 +125,20 @@ const Navigation: React.FC<NavigationProps> = ({
 
                 <button
                   onClick={onOpenExportData}
-                  className="flex items-center gap-1 lg:gap-2 px-2 lg:px-4 py-2 rounded-lg font-medium text-purple-200 hover:text-white hover:bg-white hover:bg-opacity-10 transition-all text-sm lg:text-base"
+                  className="flex items-center gap-1 xl:gap-2 px-2 xl:px-4 py-2 rounded-lg font-medium text-purple-200 hover:text-white hover:bg-white hover:bg-opacity-10 transition-all text-sm xl:text-base"
                   title="Export Data"
                 >
-                  <Download className="w-3 h-3 lg:w-4 lg:h-4" />
-                  <span className="hidden lg:inline">Export</span>
+                  <Download className="w-4 h-4 xl:w-5 xl:h-5" />
+                  <span className="hidden xl:inline">Export</span>
                 </button>
 
                 <button
                   onClick={onOpenBackupRestore}
-                  className="flex items-center gap-1 lg:gap-2 px-2 lg:px-4 py-2 rounded-lg font-medium text-purple-200 hover:text-white hover:bg-white hover:bg-opacity-10 transition-all text-sm lg:text-base"
+                  className="flex items-center gap-1 xl:gap-2 px-2 xl:px-4 py-2 rounded-lg font-medium text-purple-200 hover:text-white hover:bg-white hover:bg-opacity-10 transition-all text-sm xl:text-base"
                   title="Backup & Restore"
                 >
-                  <Database className="w-3 h-3 lg:w-4 lg:h-4" />
-                  <span className="hidden lg:inline">Backup</span>
+                  <Database className="w-4 h-4 xl:w-5 xl:h-5" />
+                  <span className="hidden xl:inline">Backup</span>
                 </button>
               </>
             )}
@@ -143,31 +146,31 @@ const Navigation: React.FC<NavigationProps> = ({
             {/* Logout Button */}
             <button
               onClick={onLogout}
-              className="flex items-center gap-1 lg:gap-2 px-2 lg:px-4 py-2 rounded-lg font-medium text-red-200 hover:text-white hover:bg-red-500 hover:bg-opacity-20 transition-all text-sm lg:text-base"
+              className="flex items-center gap-1 xl:gap-2 px-2 xl:px-4 py-2 rounded-lg font-medium text-red-200 hover:text-white hover:bg-red-500 hover:bg-opacity-20 transition-all text-sm xl:text-base"
               title="Logout"
             >
-              <LogOut className="w-3 h-3 lg:w-4 lg:h-4" />
-              <span className="hidden lg:inline">Logout</span>
+              <LogOut className="w-4 h-4 xl:w-5 xl:h-5" />
+              <span className="hidden xl:inline">Logout</span>
             </button>
           </div>
         </div>
 
         {/* Mobile Navigation Menu */}
         {isMobileMenuOpen && (
-          <div className="md:hidden absolute top-full left-0 right-0 bg-black bg-opacity-90 backdrop-blur-xl border-b border-white border-opacity-20">
-            <div className="px-4 py-4 space-y-2">
+          <div className="lg:hidden absolute top-full left-0 right-0 bg-black bg-opacity-90 backdrop-blur-xl border-b border-white border-opacity-20 max-h-screen overflow-y-auto">
+            <div className="px-4 py-4 space-y-2 max-w-sm mx-auto">
               <button
                 onClick={() => {
                   onTabChange('selection');
                   setIsMobileMenuOpen(false);
                 }}
-                className={`w-full flex items-center gap-3 px-4 py-3 rounded-lg font-medium transition-all ${
+                className={`w-full flex items-center gap-3 px-4 py-3 rounded-lg font-medium transition-all text-base ${
                   currentTab === 'selection'
                     ? 'bg-purple-600 text-white shadow-lg'
                     : 'text-purple-200 hover:text-white hover:bg-white hover:bg-opacity-10'
                 }`}
               >
-                <Home className="w-5 h-5" />
+                <Home className="w-6 h-6" />
                 <span>Selection</span>
               </button>
 
@@ -176,16 +179,16 @@ const Navigation: React.FC<NavigationProps> = ({
                   onTabChange('winners');
                   setIsMobileMenuOpen(false);
                 }}
-                className={`w-full flex items-center gap-3 px-4 py-3 rounded-lg font-medium transition-all relative ${
+                className={`w-full flex items-center gap-3 px-4 py-3 rounded-lg font-medium transition-all relative text-base ${
                   currentTab === 'winners'
                     ? 'bg-yellow-600 text-white shadow-lg'
                     : 'text-purple-200 hover:text-white hover:bg-white hover:bg-opacity-10'
                 }`}
               >
-                <Trophy className="w-5 h-5" />
+                <Trophy className="w-6 h-6" />
                 <span>Winners</span>
                 {winnerCount > 0 && (
-                  <span className="ml-auto bg-red-500 text-white text-xs rounded-full w-6 h-6 flex items-center justify-center">
+                  <span className="ml-auto bg-red-500 text-white text-sm rounded-full w-7 h-7 flex items-center justify-center font-bold">
                     {winnerCount}
                   </span>
                 )}
@@ -197,13 +200,13 @@ const Navigation: React.FC<NavigationProps> = ({
                     onTabChange('elite-spiral');
                     setIsMobileMenuOpen(false);
                   }}
-                  className={`w-full flex items-center gap-3 px-4 py-3 rounded-lg font-medium transition-all ${
+                  className={`w-full flex items-center gap-3 px-4 py-3 rounded-lg font-medium transition-all text-base ${
                     currentTab === 'elite-spiral'
                       ? 'bg-gradient-to-r from-yellow-400 to-orange-500 text-white shadow-lg'
                       : 'text-purple-200 hover:text-white hover:bg-white hover:bg-opacity-10'
                   }`}
                 >
-                  <Crown className="w-5 h-5" />
+                  <Crown className="w-6 h-6" />
                   <span>Elite's Spiral</span>
                 </button>
               )}
@@ -215,9 +218,9 @@ const Navigation: React.FC<NavigationProps> = ({
                       onOpenWinHistoryDashboard();
                       setIsMobileMenuOpen(false);
                     }}
-                    className="w-full flex items-center gap-3 px-4 py-3 rounded-lg font-medium text-purple-200 hover:text-white hover:bg-white hover:bg-opacity-10 transition-all"
+                    className="w-full flex items-center gap-3 px-4 py-3 rounded-lg font-medium text-purple-200 hover:text-white hover:bg-white hover:bg-opacity-10 transition-all text-base"
                   >
-                    <BarChart3 className="w-5 h-5" />
+                    <BarChart3 className="w-6 h-6" />
                     <span>Analytics</span>
                   </button>
 
@@ -226,9 +229,9 @@ const Navigation: React.FC<NavigationProps> = ({
                       onOpenExportData();
                       setIsMobileMenuOpen(false);
                     }}
-                    className="w-full flex items-center gap-3 px-4 py-3 rounded-lg font-medium text-purple-200 hover:text-white hover:bg-white hover:bg-opacity-10 transition-all"
+                    className="w-full flex items-center gap-3 px-4 py-3 rounded-lg font-medium text-purple-200 hover:text-white hover:bg-white hover:bg-opacity-10 transition-all text-base"
                   >
-                    <Download className="w-5 h-5" />
+                    <Download className="w-6 h-6" />
                     <span>Export Data</span>
                   </button>
 
@@ -237,9 +240,9 @@ const Navigation: React.FC<NavigationProps> = ({
                       onOpenBackupRestore();
                       setIsMobileMenuOpen(false);
                     }}
-                    className="w-full flex items-center gap-3 px-4 py-3 rounded-lg font-medium text-purple-200 hover:text-white hover:bg-white hover:bg-opacity-10 transition-all"
+                    className="w-full flex items-center gap-3 px-4 py-3 rounded-lg font-medium text-purple-200 hover:text-white hover:bg-white hover:bg-opacity-10 transition-all text-base"
                   >
-                    <Database className="w-5 h-5" />
+                    <Database className="w-6 h-6" />
                     <span>Backup & Restore</span>
                   </button>
                 </>
@@ -250,9 +253,9 @@ const Navigation: React.FC<NavigationProps> = ({
                   onLogout();
                   setIsMobileMenuOpen(false);
                 }}
-                className="w-full flex items-center gap-3 px-4 py-3 rounded-lg font-medium text-red-200 hover:text-white hover:bg-red-500 hover:bg-opacity-20 transition-all"
+                className="w-full flex items-center gap-3 px-4 py-3 rounded-lg font-medium text-red-200 hover:text-white hover:bg-red-500 hover:bg-opacity-20 transition-all text-base"
               >
-                <LogOut className="w-5 h-5" />
+                <LogOut className="w-6 h-6" />
                 <span>Logout</span>
               </button>
             </div>

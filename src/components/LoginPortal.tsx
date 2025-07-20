@@ -144,6 +144,34 @@ const LoginPortal: React.FC<LoginPortalProps> = ({ onLogin }) => {
             }
           }
           
+          .login-button-gradient-hover {
+            background: transparent;
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+          }
+          
+          .login-button-gradient-hover::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, #7c3aed, #a855f7, #c084fc, #e879f9);
+            transition: left 0.4s ease;
+            z-index: -1;
+          }
+          
+          .login-button-gradient-hover:hover::before {
+            left: 0;
+          }
+          
+          .login-button-gradient-hover:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 15px 35px rgba(124, 58, 237, 0.4);
+          }
+          
           .pulse-glow {
             animation: pulse-glow 3s ease-in-out infinite;
           }
@@ -250,10 +278,10 @@ const LoginPortal: React.FC<LoginPortalProps> = ({ onLogin }) => {
             <button
               type="submit"
               disabled={isLoading}
-              className={`login-button-hover w-full py-3 px-4 rounded-xl font-semibold text-lg transition-all transform gradient-shift ${
+              className={`login-button-gradient-hover w-full py-3 px-4 rounded-xl font-semibold text-lg transition-all transform ${
                 isLoading
-                  ? 'bg-gray-500 cursor-not-allowed'
-                  : 'shadow-lg hover:shadow-xl'
+                  ? 'bg-gray-500 cursor-not-allowed opacity-50'
+                  : 'shadow-lg hover:shadow-xl border border-purple-500 border-opacity-50'
               } text-white backdrop-blur-sm border border-purple-500 border-opacity-50`}
             >
               {isLoading ? (
